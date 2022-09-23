@@ -20,8 +20,6 @@ const (
 	NoError ErrorFlag = ""
 	// SocketErr instructs the FakeConnector to return an error related to the curl command execution
 	SocketErr ErrorFlag = "socket-error"
-	// WriteErr instructs the FakeConnector to return an error related to the storage of curl output to file
-	WriteErr ErrorFlag = "write-error"
 )
 
 // Prepare stores the command and parameters to be used by FakeConnector, preparing the call to CmdExec
@@ -37,8 +35,5 @@ func (c *FakeConnector) CmdExec() (string, error) {
 		return "curl: (7) Couldn't connect to server", &exec.ExitError{}
 	}
 
-	if c.Flag == WriteErr {
-		return "curl: (23) Failure writing output to destination", &exec.ExitError{}
-	}
 	return "", nil
 }
